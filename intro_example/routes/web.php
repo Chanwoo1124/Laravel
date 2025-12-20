@@ -4,20 +4,17 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('welcome');
     $faker = fake();
 
-    $chatMessages = $faker->sentences($faker->numberBetween(4,10));
+    $chatMessages = $faker->sentence($faker->numberBetween(4,10));
 
     return view('welcome', ['chatMessages'=>$chatMessages]);
 
 });
 
 Route::get('/dashboard', function () {
-    $faker = fake();
-
-    return view('dashboard',[
-        'welcomeMessages' => $faker -> paragraphs(5),
-    ]);
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
