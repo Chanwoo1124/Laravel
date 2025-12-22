@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     $faker = fake();
@@ -20,6 +21,16 @@ Route::get('/', function () {
 Route::get('/about',function() {
     return view('about-us.about-us');
 
+});
+
+Route::get('/users/profile/{user}', function (User $user) {
+    return view('user-profile', [
+        'userInfo' => [
+            'username'=>$user->username,
+            'profileImageLink'=> Storage::url($user->profile_path),
+            'description'=>$user->description,
+        ],
+    ]);
 });
 
 
